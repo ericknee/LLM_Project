@@ -1,0 +1,7 @@
+langchain
+langchain-community
+langchain-core
+unstructured
+langchain-text-splitters
+faiss-cpu
+transformers
