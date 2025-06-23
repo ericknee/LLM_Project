@@ -1,0 +1,11 @@
+langchain
+langchain-community
+langchain-core
+unstructured
+langchain-text-splitters
+faiss-cpu
+transformers
+Flask
+python-dotenv
+flask-cors
+itsdangerous==2.0.1
