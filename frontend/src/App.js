@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 function App() {
   const [urls, setUrls] = useState([""]);
+  const [query, setQuery] = useState("");
+  const [queryResult, setQueryResult] = useState(null);
 
   const handleAddWebsite = () => {
     setUrls([...urls, ""]);
@@ -32,6 +34,27 @@ function App() {
 
   };
 
+  const handleQuery = async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/query", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({query})
+      })
+
+      const data = await res.json();
+      setQueryResult(data)
+      console.log("Query response:", data);
+    }
+
+    catch (error) {
+      console.error("Error querying Chroma:", error)
+    }
+  }
+
+
   return (
     <div>
     
@@ -57,6 +80,32 @@ function App() {
       <div>
           <button onClick={handleAddWebsite}> Add Website </button>
           <button onClick={handlePrintWebsites}> Print Websites </button>
+      </div>
+
+      <div>
+
+          <h1> Website Query </h1>
+            <input
+              key={100}
+              type="text"
+              value={query}
+              onChange={(e) => {
+                const newQuery = e.target.value;
+                setQuery(newQuery);
+              }}
+              placeholder={"Enter query"}
+              style={{ display: "block", marginBottom: "0.5rem" }}
+            />
+            <button onClick={handleQuery}> Submit Query </button>
+      </div>
+
+      <div>
+          {queryResult && (
+            <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc" }}>
+              <h2> Query Result: </h2>
+              {queryResult.results}
+            </div>
+          )}
       </div>
         
 
