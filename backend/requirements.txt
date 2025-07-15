@@ -9,3 +9,9 @@ Flask
 python-dotenv
 flask-cors
 itsdangerous==2.0.1
+sentence-transformers
+chromadb
+google-generativeai
+Flask-SQLAlchemy
+google-auth
+flask-jwt-extended

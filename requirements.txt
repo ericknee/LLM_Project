@@ -5,3 +5,7 @@ unstructured
 langchain-text-splitters
 faiss-cpu
 transformers
+nvm
+playwright
+unstructured[all-docs]
+react-router-dom
