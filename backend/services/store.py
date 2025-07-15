@@ -32,7 +32,7 @@ def store_vectors(texts, embeddings, collection_name="my_docs"):
 
     print(f"Added {ids} to collection: {collection_name}")
 
-def query_vectors(query_embedding, n_results=3, collection_name="my_docs"):
+def query_vectors(query_embedding, n_results=5, collection_name="my_docs"):
     client = get_chroma_client()
     print("Accessed chroma client . . .")
     collection = client.get_collection(collection_name)

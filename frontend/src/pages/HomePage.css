@@ -1,0 +1,79 @@
+/* Container for input + button */
+.input-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+body {
+  background: #f0f8ff;
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* Input styling */
+.input-field {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem; /* extra right padding for the button */
+  border: 1px solid #cce4f7;
+  border-radius: 50px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.input-field.invalid {
+  border-color: #ff4d4d;
+  background: #ffe6e6;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #007acc;
+  box-shadow: 0 0 5px rgba(0, 122, 204, 0.5);
+}
+
+/* "X" button styling inside the input box */
+.clear-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.clear-button:hover {
+  background: #d93636;
+}
+
+/* Round primary buttons */
+.primary-button {
+  background: #007acc;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.primary-button:hover {
+  background: #005fa3;
+}
+
+.primary-button:disabled {
+  background: #a6cce7;
+  cursor: not-allowed;
+}
