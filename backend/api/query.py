@@ -13,7 +13,6 @@ def query_db():
         return current_app.make_default_options_response()
     
     data = request.get_json()
-    print("Query.py data:", data)
     query = data.get("query", "")
     print("Query:", query)
     embedding = embed_texts(query)

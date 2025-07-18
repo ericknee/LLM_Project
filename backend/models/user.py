@@ -1,6 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
+from models import db
 
-db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = "users"
@@ -16,20 +15,13 @@ class User(db.Model):
         self.chroma_collection_name = chroma_collection_name
 
     @classmethod
-    def get_or_create(cls, google_user_id, email, chroma_client):
+    def get_or_create(cls, google_user_id, email):
         user = cls.query.filter_by(google_user_id=google_user_id).first()
 
         if not user:
-            # Generate a unique collection name for Chroma
-            collection_name = f"recipes_user_{google_user_id}"
-
-            # Create the collection in Chroma if it doesn't exist
-            chroma_client.get_or_create_collection(collection_name)
-
             user = cls(
                 google_user_id=google_user_id,
                 email=email,
-                chroma_collection_name=collection_name
             )
             db.session.add(user)
             db.session.commit()

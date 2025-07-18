@@ -12,34 +12,25 @@ def ingest_urls():
         return current_app.make_default_options_response()
 
     data = request.get_json()
-    print("DATA", data)
     urls = data.get("urls", [])
+    access_token = data.get("access_token", "")
 
     print("Received URLs:", urls)
 
 
     # [[doc 1 chunks], [doc 2 chunks], . . .]
     chunks = load_and_split_text(urls)
-    # print(len(chunks[0]))
-    # print(chunks[0])
+
     vectors = []
     for doc in chunks:
         vectors.append(embed_texts(doc))
     
-    # print(len(vectors))
-    # print(len(vectors[0]))
-    # mapping = {}
-    
-    # for elem in range(len(urls)):
-    #     mapping[urls[elem]] = vectors[elem]
-    
-    # print(chunks)
     for (chunk, vector) in zip(chunks, vectors):
         print("CHUNK", len(chunk))
         print("VECTOR", len(vector))
         if not len(chunk) or not len(vector):
             print("Error accessing website")
-        store_vectors(chunk, vector)
+        store_vectors(chunk, vector, access_token)
     print("Stored vectors . . .")
     # print("yes")
     

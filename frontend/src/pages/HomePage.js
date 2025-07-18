@@ -1,5 +1,6 @@
 import './HomePage.css';
 import React, { useState, useEffect } from "react";
+import InputBox from "../components/InputBox"
 
 export default function HomePage() {
   const [urls, setUrls] = useState([""]);
@@ -39,7 +40,7 @@ export default function HomePage() {
 
   const isAllValid = urls.length > 0 && urlValidity.every(Boolean);
 
-  const handlePrintWebsites = async () => {
+  const handlesubmitUrl = async () => {
     console.log("Entered URLs", urls);
     setLoadingIngest(true);
 
@@ -49,7 +50,10 @@ export default function HomePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ urls }),
+        body: JSON.stringify({
+          urls,
+          access_token: localStorage.getItem("access_token")
+        }),
       });
 
       const data = await res.json();
@@ -88,24 +92,15 @@ export default function HomePage() {
       <div className="section">
         <h1>Recipe Log</h1>
         <p>Enter URLs of recipe pages you’d like to store and search.</p>
-
         {urls.map((url, index) => (
-          <div key={index} className="input-container">
-            <input
-              type="text"
-              value={url}
-              onChange={(e) => handleUrlChange(index, e.target.value)}
-              placeholder={`Website URL #${index + 1}`}
-              className={`input-field ${url && !urlValidity[index] ? "invalid" : ""}`}
-            />
-            <button
-              className="clear-button"
-              onClick={() => handleRemoveWebsite(index)}
-              type="button"
-            >
-              x
-            </button>
-          </div>
+          <InputBox
+            key={index}
+            value={url}
+            onChange={(e) => handleUrlChange(index, e.target.value)}
+            onClear={() => handleRemoveWebsite(index)}
+            placeholder={`Website URL #${index + 1}`}
+            isInvalid={url && !urlValidity[index]}
+          />
         ))}
 
         <div className="button-group">
@@ -114,7 +109,7 @@ export default function HomePage() {
           </button>
           <button
             className="primary-button"
-            onClick={handlePrintWebsites}
+            onClick={handlesubmitUrl}
             disabled={!isAllValid || loadingIngest}
           >
             {loadingIngest ? "Loading..." : "Store Websites"}
