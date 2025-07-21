@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import InputBox from "../components/InputBox";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+
   const [urls, setUrls] = useState([""]);
   const [urlValidity, setUrlValidity] = useState([false]);
   const [query, setQuery] = useState("");
@@ -85,9 +88,24 @@ export default function HomePage() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    navigate("/login");
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-950 text-white flex items-center justify-center px-4">
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-950 text-white flex flex-col">
+      {/* Top Bar with Log Out Button */}
+      <div className="w-full bg-blue-100 flex items-center justify-between px-8 py-4 mb-8">
+        <div></div>
+        <button
+          className="bg-white text-blue-800 hover:bg-blue-200 font-bold py-2 px-6 rounded shadow transition-colors duration-150"
+          onClick={handleLogout}
+        >
+          Log Out
+        </button>
+      </div>
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-10 mx-auto flex-1">
         
         {/* Left Section: Website URLs */}
         <div className="flex flex-col items-center">

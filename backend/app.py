@@ -12,7 +12,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = "temporary-secret-key"  # Make this a secure key in production
 jwt = JWTManager(app)
     
-CORS(app, origins=["http://localhost:3000"])
+CORS(app, origins=["http://localhost:3000", "http://localhost",  "http://localhost:3000/login", "http://localhost:3000/home"])
 
 db.init_app(app)
 migrate.init_app(app, db)
