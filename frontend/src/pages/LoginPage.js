@@ -28,9 +28,13 @@ export default function LoginPage() {
             });
 
             const data = await response.json();
+            console.log(data)
             if (response.ok) {
+              console.log("Response OK")
               localStorage.setItem("access_token", data.access_token);
+              console.log("Navigating to home")
               navigate("/home");
+              console.log("Navigated to home")
             } else {
               console.log("Login error", data);
             }
