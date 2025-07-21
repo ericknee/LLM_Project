@@ -12,6 +12,7 @@ def get_chroma_client():
 def store_vectors(texts, embeddings, collection_name="my_docs"):
     client = get_chroma_client()
     print("Accessed chroma client . . .")
+    print("Collection name:", collection_name)
     collection = client.get_or_create_collection(collection_name)
     # print(texts)
     # for i, doc in enumerate(texts):
@@ -32,9 +33,10 @@ def store_vectors(texts, embeddings, collection_name="my_docs"):
 
     print(f"Added {ids} to collection: {collection_name}")
 
-def query_vectors(query_embedding, n_results=5, collection_name="my_docs"):
+def query_vectors(query_embedding, collection_name="my_docs", n_results=5):
     client = get_chroma_client()
     print("Accessed chroma client . . .")
+    print("Collection name:", collection_name)
     collection = client.get_collection(collection_name)
 
     results = collection.query(

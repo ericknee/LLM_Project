@@ -13,11 +13,12 @@ def query_db():
         return current_app.make_default_options_response()
     
     data = request.get_json()
-    print("Query.py data:", data)
     query = data.get("query", "")
+    access_token = data.get("access_token", "")
     print("Query:", query)
     embedding = embed_texts(query)
-    results = query_vectors(embedding)
+    results = query_vectors(embedding, access_token)
+    
     top_ids = results["ids"][0]
     top_texts = results["documents"][0]
     top_distances = results["distances"][0]

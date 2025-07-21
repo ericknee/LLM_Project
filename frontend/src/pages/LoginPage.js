@@ -5,7 +5,6 @@ import "./LoginPage.css";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  console.log(window.location.origin);
 
   return (
     <GoogleOAuthProvider clientId="1023775324387-fhhbulp07ul0dmar1us5ujlrl1kf13gn.apps.googleusercontent.com">
@@ -16,10 +15,25 @@ export default function LoginPage() {
             size="large"
             shape="rectangular"
             width="300"
-            onSuccess={(credentialResponse) => {
-              const token = credentialResponse.credential;
-              localStorage.setItem("access_token", token);
+            onSuccess={async (credentialResponse) => {
+              const googleToken = credentialResponse.credential;
+              const response = await fetch("http://localhost:5000/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                token: googleToken,
+              }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+              localStorage.setItem("access_token", data.access_token);
               navigate("/home");
+            } else {
+              console.log("Login error", data);
+            }
             }}
             onError={() => {
               console.log("Login Failed");
