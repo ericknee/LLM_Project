@@ -3,6 +3,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from models.user import User
 from flask_jwt_extended import create_access_token
+import re
 
 login_bp = Blueprint("login", __name__)
 
@@ -19,12 +20,13 @@ def login():
         )
 
         google_user_id = idinfo["sub"]
-        email = idinfo["email"]
+        email = idinfo['email']
+        email = re.sub(r'[@.]', '_', email)
 
         user = User.get_or_create(google_user_id, email)
 
-        access_token = create_access_token(identity=user.google_user_id)
-
+        access_token = create_access_token(identity=user.email)
+        print(access_token)
         return jsonify(access_token=access_token)
 
     except ValueError:

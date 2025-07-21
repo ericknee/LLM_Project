@@ -8,4 +8,4 @@ transformers
 nvm
 playwright
 unstructured[all-docs]
-react-router-dom
+psycopg2-binary

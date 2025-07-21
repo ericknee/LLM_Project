@@ -1,4 +1,4 @@
-from models import db
+from extensions import db
 
 
 class User(db.Model):
@@ -9,10 +9,10 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     chroma_collection_name = db.Column(db.String, unique=True, nullable=False)
 
-    def __init__(self, google_user_id, email, chroma_collection_name):
+    def __init__(self, google_user_id, email):
         self.google_user_id = google_user_id
         self.email = email
-        self.chroma_collection_name = chroma_collection_name
+        self.chroma_collection_name = f"collection_{email.replace('@', '_').replace('.', '_')}"
 
     @classmethod
     def get_or_create(cls, google_user_id, email):

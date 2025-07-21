@@ -1,3 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
+from .user import User
+# from .recipe import Recipe
 
-db = SQLAlchemy()
+__all__ = ["User"]
