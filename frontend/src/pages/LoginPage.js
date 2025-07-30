@@ -1,16 +1,18 @@
 import React from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from "react-router";
-import "./LoginPage.css";
 
 export default function LoginPage() {
   const navigate = useNavigate();
 
   return (
     <GoogleOAuthProvider clientId="1023775324387-fhhbulp07ul0dmar1us5ujlrl1kf13gn.apps.googleusercontent.com">
-      <div className="login-container">
-        <h1 className="login-title">Recipe Log</h1>
-        <div className="login-button-wrapper">
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-950 text-white flex flex-col justify-center items-center">
+        <div className="text-center mb-8">
+          <h1 className="text-5xl font-bold mb-4 text-white">Recipe Log</h1>
+          <p className="text-lg text-blue-200">Sign in to access your recipe collection</p>
+        </div>
+        <div className="bg-blue-800 p-8 rounded-lg shadow-xl">
           <GoogleLogin
             size="large"
             shape="rectangular"
